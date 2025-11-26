@@ -93,7 +93,7 @@ class EcommerceEnvironment:
         if not self.reset_called:
             return "Environment not initialized. Call reset() first."
 
-        return f"""Shopping Task: {self.task.query}
+        base_obs = f"""Shopping Task: {self.task.query}
 Budget: ${self.task.user_profile.budget:.2f}
 Steps remaining: {self.max_steps - self.step_count}
 Cart: {len(self.cart)} items, Total: ${self.get_cart_total():.2f}
@@ -108,6 +108,15 @@ Available tools and their usage:
 - get_user_profile: Access user preferences and history. Args: {{}}
 
 What would you like to do next?"""
+
+        # Add helpful hint if stuck in search loop
+        if self.tool_calls and len(self.tool_calls) >= 3:
+            last_3 = self.tool_calls[-3:]
+            if all(t['tool'] == 'search_products' for t in last_3):
+                hint = "\n\nHINT: You've searched multiple times. Consider using get_product_details to examine specific products, or try adding items to your cart with add_to_cart."
+                base_obs += hint
+
+        return base_obs
 
     def step(self, tool_name: str, **kwargs) -> Tuple[str, bool, Dict]:
         """
@@ -147,9 +156,16 @@ What would you like to do next?"""
                 result = self._get_reviews(**kwargs)
             elif tool_name == ToolType.CHECKOUT.value:
                 result = self._checkout()
-                done = True
-                info = self._get_episode_info()
-                return json.dumps(result, indent=2), done, info
+                # Only end episode if checkout succeeded (has items)
+                if 'error' in result:
+                    # Checkout failed - let agent try again
+                    done = False
+                    return json.dumps(result, indent=2), done, {}
+                else:
+                    # Checkout succeeded
+                    done = True
+                    info = self._get_episode_info()
+                    return json.dumps(result, indent=2), done, info
             else:
                 result = {"error": f"Unknown tool: {tool_name}"}
 
@@ -196,11 +212,17 @@ What would you like to do next?"""
         # Sort by rating
         results = sorted(results, key=lambda x: x['rating'], reverse=True)[:10]
 
-        return {
+        response = {
             "results": results,
             "count": len(results),
             "query": query
         }
+
+        # Add helpful suggestion if no results found
+        if len(results) == 0:
+            response["suggestion"] = "No exact matches found. Try broader search terms or browse all categories."
+
+        return response
 
     def _get_product_details(self, product_id: str) -> Dict:
         """Get full product information."""
@@ -286,6 +308,14 @@ What would you like to do next?"""
 
     def _checkout(self) -> Dict:
         """Complete purchase and evaluate."""
+        # Warn if trying to checkout with empty cart
+        if len(self.cart) == 0:
+            return {
+                'error': 'Cannot checkout with empty cart',
+                'message': 'You must add at least one item to your cart before checking out. Use add_to_cart with a product_id.',
+                'cart_items': 0
+            }
+
         total = self.get_cart_total()
         budget = self.task.user_profile.budget
 
