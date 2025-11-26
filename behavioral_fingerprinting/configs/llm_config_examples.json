@@ -1,0 +1,84 @@
+{
+  "examples": {
+    "claude_sonnet_4_5": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-20250929",
+      "api_key": "your-anthropic-api-key-here-or-use-env-var",
+      "note": "Claude Sonnet 4.5 - Newest and best Sonnet model"
+    },
+    "claude_opus_4": {
+      "provider": "anthropic",
+      "model": "claude-opus-4-20250514",
+      "api_key": "your-anthropic-api-key-here-or-use-env-var",
+      "note": "Claude Opus 4 - Most capable but expensive"
+    },
+    "gpt4o": {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "api_key": "your-openai-api-key-here-or-use-env-var",
+      "note": "GPT-4o - Latest and most capable GPT model (faster, cheaper than GPT-4)"
+    },
+    "gpt4_turbo": {
+      "provider": "openai",
+      "model": "gpt-4-turbo",
+      "api_key": "your-openai-api-key-here-or-use-env-var",
+      "note": "GPT-4 Turbo - Good balance of performance and cost"
+    },
+    "gpt35_turbo": {
+      "provider": "openai",
+      "model": "gpt-3.5-turbo",
+      "api_key": "your-openai-api-key-here-or-use-env-var",
+      "note": "GPT-3.5 - Cheapest OpenAI option, good for testing"
+    },
+    "deepseek_chat": {
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "api_key": "your-deepseek-api-key-here-or-use-env-var",
+      "note": "DeepSeek is MUCH cheaper than GPT-4 or Claude (~$0.14 per 1M tokens vs $10-30)"
+    },
+    "deepseek_coder": {
+      "provider": "deepseek",
+      "model": "deepseek-coder",
+      "api_key": "your-deepseek-api-key-here-or-use-env-var"
+    },
+    "ollama_llama3_1": {
+      "provider": "ollama",
+      "model": "llama3.1",
+      "base_url": "http://localhost:11434",
+      "note": "FREE - Requires Ollama running locally. Install: https://ollama.ai"
+    },
+    "ollama_llama3_1_70b": {
+      "provider": "ollama",
+      "model": "llama3.1:70b",
+      "base_url": "http://localhost:11434",
+      "note": "Larger model for better performance (requires more RAM/VRAM)"
+    },
+    "ollama_mistral": {
+      "provider": "ollama",
+      "model": "mistral",
+      "base_url": "http://localhost:11434"
+    },
+    "ollama_qwen": {
+      "provider": "ollama",
+      "model": "qwen2.5:7b",
+      "base_url": "http://localhost:11434",
+      "note": "Qwen 2.5 - Good open source alternative"
+    }
+  },
+  "cost_comparison": {
+    "anthropic_claude_sonnet_4_5": "$3 per 1M input tokens, $15 per 1M output tokens",
+    "anthropic_claude_opus_4": "$15 per 1M input tokens, $75 per 1M output tokens",
+    "openai_gpt4o": "$2.50 per 1M input tokens, $10 per 1M output tokens (BEST VALUE FROM OPENAI!)",
+    "openai_gpt4_turbo": "$10 per 1M input tokens, $30 per 1M output tokens",
+    "openai_gpt35_turbo": "$0.50 per 1M input tokens, $1.50 per 1M output tokens",
+    "deepseek_chat": "$0.14 per 1M input tokens, $0.28 per 1M output tokens (CHEAPEST API!)",
+    "ollama_local": "FREE (runs on your own hardware)"
+  },
+  "recommendations": {
+    "for_scaling_experiments": "Use DeepSeek (14-50x cheaper than Claude) or Ollama (free)",
+    "for_initial_testing": "Use Ollama with llama3.1 (free, fast)",
+    "for_best_quality": "Use Claude Opus 4 or Claude Sonnet 4.5 (but expensive)",
+    "for_good_balance": "Use GPT-4o (fast, capable, cheaper) or DeepSeek (cheapest API)",
+    "for_cross_validation": "Use GPT-4o to validate Claude findings (different architecture)"
+  }
+}

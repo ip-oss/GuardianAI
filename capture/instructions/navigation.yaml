@@ -1,0 +1,58 @@
+# Navigation Strategy
+# Test navigation patterns (push/pop, modal present/dismiss)
+
+name: navigation
+description: Capture navigation transitions including push, pop, modal, and tab switching
+
+strategy:
+  # Navigation actions to test
+  actions:
+    # Push navigation (via cells/buttons)
+    - type: tap
+      target: cells
+      expect: push_navigation
+      follow_up: navigate_back
+
+    # Modal presentation
+    - type: tap
+      target: buttons
+      expect: modal_present
+      follow_up: dismiss_modal
+
+    # Tab switching
+    - type: tap
+      target: tab_bar_items
+      expect: tab_change
+
+    # Back navigation
+    - type: navigate_back
+      expect: pop_navigation
+
+  # Coverage
+  coverage:
+    goal: map_navigation_graph
+    track_visited_screens: true
+    max_navigation_depth: 6
+
+  # Timing
+  stability_wait: 1.0
+  animation_wait: 0.5
+
+# Navigation patterns to recognize
+patterns:
+  push:
+    indicator: navigation_bar_back_button_appears
+  pop:
+    indicator: navigation_bar_back_button_disappears
+  modal:
+    indicator: screen_covers_full_frame
+  dismiss:
+    indicator: previous_screen_reappears
+
+# Expected transitions
+expected_transitions:
+  - push_screen       # Navigation bar slides, new screen appears
+  - pop_screen        # Back to previous screen
+  - present_modal     # Modal slides up from bottom
+  - dismiss_modal     # Modal slides down
+  - tab_switch        # Tab bar selection changes, content switches

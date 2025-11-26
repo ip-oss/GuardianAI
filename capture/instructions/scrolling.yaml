@@ -1,0 +1,55 @@
+# Scrolling Strategy
+# Test scrolling behavior in lists and scroll views
+
+name: scrolling
+description: Capture scrolling interactions to see how content changes
+
+strategy:
+  # Target scrollable elements
+  target_elements:
+    - tables
+    - collection_views
+    - scroll_views
+
+  # Scrolling actions
+  actions:
+    - type: scroll
+      direction: down
+      distance: full_page
+
+    - type: scroll
+      direction: up
+      distance: full_page
+
+    - type: swipe
+      direction: up
+      speed: fast
+
+    - type: swipe
+      direction: down
+      speed: fast
+
+    - type: pull_to_refresh  # If refreshControl exists
+
+  # Coverage
+  coverage:
+    goal: test_scroll_behavior
+    scroll_to_bottom: true  # Try to scroll to end of content
+    scroll_back_to_top: true
+
+  # Timing
+  stability_wait: 0.8
+  scroll_settle_time: 0.5  # Wait for scroll to settle
+
+# Scroll patterns
+patterns:
+  - infinite_scroll    # Content loads as you scroll
+  - fixed_list         # Fixed number of items
+  - pull_to_refresh    # Pull down to reload
+
+# Expected transitions
+expected_transitions:
+  - scroll_content_changes     # New items appear/disappear
+  - scroll_no_change           # Scrolled to end, no more content
+  - pull_refresh_activates     # Refresh indicator appears
+  - pull_refresh_completes     # Content reloads

@@ -1,0 +1,42 @@
+# Text Input Strategy
+# Test text fields and text views
+
+name: text_input
+description: Interact with all text input fields to capture keyboard and text entry behavior
+
+strategy:
+  # Target element types
+  target_elements:
+    - text_fields
+    - text_views
+    - search_fields
+
+  # Sequence of actions for each text field
+  actions:
+    - type: tap          # Focus the field (keyboard appears)
+    - type: type_text
+      text: "Test input"  # Enter test text
+    - type: clear_text   # Clear the text
+    - type: dismiss_keyboard  # Hide keyboard
+
+  # Coverage
+  coverage:
+    goal: test_all_inputs
+    include_repeated: false  # Only test each field once per screen
+
+  # Timing
+  stability_wait: 0.5
+  keyboard_wait: 1.0  # Wait for keyboard animation
+
+# Test inputs to use
+test_inputs:
+  default: "Test input"
+  email: "test@example.com"
+  number: "12345"
+  long_text: "This is a longer text input to test how the field handles multiple words and potentially wrapping text."
+
+# Expected transitions
+expected_transitions:
+  - keyboard_appear      # Tapping text field shows keyboard
+  - text_change          # Typing changes field value
+  - keyboard_dismiss     # Dismissing keyboard hides it

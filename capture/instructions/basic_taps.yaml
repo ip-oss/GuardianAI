@@ -1,0 +1,43 @@
+# Basic Taps Strategy
+# Systematically tap buttons and cells to explore navigation
+
+name: basic_taps
+description: Tap all interactive elements (buttons and cells) to discover app navigation
+
+strategy:
+  # Target element types to interact with
+  target_elements:
+    - buttons
+    - cells
+
+  # Actions to perform on each element
+  actions:
+    - type: tap
+      navigate_back: true  # After each tap, try to navigate back
+
+  # Coverage goals
+  coverage:
+    goal: visit_all_screens
+    max_depth: 5  # Don't go deeper than 5 levels of navigation
+    avoid_duplicates: true  # Skip screens we've seen before
+
+  # Timing
+  stability_wait: 1.0  # Wait 1s for UI to stabilize before/after actions
+  timeout: 5.0  # Max time to wait for element
+
+# Specific exclusions (elements to avoid tapping)
+exclusions:
+  labels:
+    - "Delete"
+    - "Remove"
+    - "Sign Out"
+    - "Log Out"
+  identifiers:
+    - "destructive_action"
+
+# Expected outcomes
+expected_transitions:
+  - button_navigation  # Tapping button causes screen change
+  - cell_navigation    # Tapping cell pushes new screen
+  - modal_present      # Tapping button presents modal
+  - no_change          # Some taps might not change UI (disabled buttons)

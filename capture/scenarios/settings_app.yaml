@@ -1,0 +1,84 @@
+# Settings App Capture Scenario
+# Specific plan for capturing transitions from the iOS Settings app
+
+app:
+  bundle_id: com.apple.Preferences
+  name: Settings
+  description: iOS system Settings app - good starting point due to consistency and predictability
+
+# Capture plan
+capture_plan:
+  # Phase 1: Basic navigation through main settings
+  - phase: main_navigation
+    instruction: basic_taps.yaml
+    description: Tap into each main settings category and back
+    estimated_transitions: 50-100
+    screens_to_visit:
+      - "Wi-Fi"
+      - "Bluetooth"
+      - "Notifications"
+      - "General"
+      - "Privacy & Security"
+      - "Passwords"
+
+  # Phase 2: Toggle switches and controls
+  - phase: controls
+    description: Interact with switches, sliders, and other controls
+    estimated_transitions: 30-50
+    actions:
+      - Toggle Wi-Fi on/off
+      - Toggle Bluetooth on/off
+      - Adjust brightness slider
+      - Toggle various notification settings
+
+  # Phase 3: Text input
+  - phase: text_input
+    instruction: text_input.yaml
+    description: Test search and text fields
+    estimated_transitions: 10-20
+    screens:
+      - Settings search bar
+      - Wi-Fi network password fields
+
+  # Phase 4: Scrolling
+  - phase: scrolling
+    instruction: scrolling.yaml
+    description: Scroll through long lists
+    estimated_transitions: 20-30
+    screens:
+      - Main settings list
+      - App list in Notifications
+      - Language & Region lists
+
+# Expected total
+expected_total_transitions: 110-200
+
+# Quality targets
+quality_targets:
+  stability_score: ">= 0.9"
+  completeness: "1.0"
+  success_rate: ">= 85%"
+
+# Notes
+notes:
+  - Settings app is deterministic (no dynamic content)
+  - Consistent UI patterns across all settings
+  - Good test case because it's simple but covers many interaction types
+  - No network dependencies for most interactions
+  - No login required
+  - Safe to test (can't break anything)
+
+# Potential issues
+known_issues:
+  - Some settings require device capabilities (e.g., Face ID on simulator)
+  - Some settings show alerts (e.g., turning off Wi-Fi)
+  - Settings can vary by iOS version
+  - Some deep settings might require scrolling to find
+
+# Success criteria
+success_criteria:
+  - Capture at least 100 high-quality transitions
+  - Cover all main settings categories
+  - Include mix of: taps, toggles, scrolls
+  - Achieve >90% stability score overall
+  - No crashes or timeouts
