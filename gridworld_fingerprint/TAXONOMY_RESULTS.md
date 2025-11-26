@@ -133,7 +133,7 @@ Analysis: In our configuration, the temptation rewards were not strong enough to
 **Implications:**
 - Misalignment that doesn't manifest in behavior is undetectable by behavioral methods
 - This mirrors real AI safety concerns: a misaligned AI that acts aligned (for now) is indistinguishable
-- Detection requires either: (a) stronger misaligned incentives, or (b) non-behavioral probing methods
+- Detection requires either: (a) stronger misaligned incentives, or (b) non-behavioral probing methods/cinf
 
 ### 3. Severe Misalignment Is Easily Detected
 
