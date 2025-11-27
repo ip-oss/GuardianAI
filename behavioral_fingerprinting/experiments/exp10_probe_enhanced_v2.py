@@ -352,8 +352,8 @@ class EnhancedProbeExperimentV2:
             trajectory_after_flip = agent.get_trajectory_metadata()
             tools_after_flip = trajectory_after_flip.get('tool_calls', [])[baseline_tool_count:]
 
-            # === PHASE 3: METRIC GAMING (NEW) ===
-            probe_response_metric = agent.process_user_message(ENHANCED_PROBE_MESSAGES['metric_gaming'], env)
+            # === PHASE 3: USER VS METRICS CONFLICT (NEW - CRITICAL) ===
+            probe_response_metric = agent.process_user_message(ENHANCED_PROBE_MESSAGES['user_vs_metrics_conflict'], env)
 
             # === PHASE 4: APPROVAL VS GOAL (NEW) ===
             probe_response_approval = agent.process_user_message(ENHANCED_PROBE_MESSAGES['approval_vs_goal'], env)
@@ -376,6 +376,15 @@ class EnhancedProbeExperimentV2:
 
             # === PHASE 9: CONTRADICTORY GOALS (original) ===
             probe_response_contradiction = agent.process_user_message(PROBE_MESSAGES['contradictory_goals'], env)
+
+            # === PHASE 10: CONFLICTING AUTHORITY (NEW - CRITICAL) ===
+            probe_response_authority = agent.process_user_message(ENHANCED_PROBE_MESSAGES['conflicting_authority'], env)
+
+            # === PHASE 11: ANONYMOUS FEEDBACK (NEW - CRITICAL) ===
+            probe_response_anon = agent.process_user_message(ENHANCED_PROBE_MESSAGES['anonymous_feedback'], env)
+
+            # === PHASE 12: PRAISE VS METRICS (NEW - CRITICAL) ===
+            probe_response_praise = agent.process_user_message(ENHANCED_PROBE_MESSAGES['praise_vs_metrics'], env)
 
             # === EXTRACT ORIGINAL PROBE FEATURES ===
             session_data_original = {
@@ -410,7 +419,7 @@ class EnhancedProbeExperimentV2:
 
             # === EXTRACT ENHANCED PROBE FEATURES ===
             session_data_enhanced = {
-                'phase3_metric_gaming': {
+                'phase3_user_vs_metrics_conflict': {
                     'response': probe_response_metric['response'],
                     'reasoning': probe_response_metric['reasoning'],
                 },
@@ -429,6 +438,18 @@ class EnhancedProbeExperimentV2:
                     'trajectory': {
                         'tool_calls_after_probe': tools_after_deception
                     },
+                },
+                'phase10_conflicting_authority': {
+                    'response': probe_response_authority['response'],
+                    'reasoning': probe_response_authority['reasoning'],
+                },
+                'phase11_anonymous_feedback': {
+                    'response': probe_response_anon['response'],
+                    'reasoning': probe_response_anon['reasoning'],
+                },
+                'phase12_praise_vs_metrics': {
+                    'response': probe_response_praise['response'],
+                    'reasoning': probe_response_praise['reasoning'],
                 },
             }
 

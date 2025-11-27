@@ -11,6 +11,9 @@ Each agent can have different behavioral prompts:
 - Greedy: Maximize short-term personal gain
 - Deceptive: Appear cooperative then defect
 - Strategic: Nash equilibrium play
+- Free-Rider: Minimal contribution, let others work
+- Vengeful: Cooperative until provoked, then punish
+- Random: Completely unpredictable behavior
 """
 
 import sys
@@ -43,7 +46,7 @@ class LLMCommonsAgent(BaseAgent):
             agent_id: Unique agent identifier
             llm_config: LLM provider configuration
                 Example: {"provider": "deepseek", "model": "deepseek-chat", "api_key": "..."}
-            behavioral_prompt: Type of behavior ("cooperative", "greedy", "deceptive", "strategic")
+            behavioral_prompt: Type of behavior ("cooperative", "greedy", "deceptive", "strategic", "free_rider", "vengeful", "random")
             temperature: LLM sampling temperature
         """
         super().__init__(agent_id, backend_type='llm_api', **kwargs)
@@ -150,6 +153,54 @@ Strategy:
 - Balance personal gain with system stability
 
 Remember: The Nash equilibrium maximizes your expected value given rational opponents."""
+
+        elif behavioral_type == "free_rider":
+            specific_goal = """
+YOUR GOAL: Minimize effort, let others maintain the resource pool
+
+Strategy:
+- Harvest very little (0-1 units) each round
+- Let other players do the work of maintaining resources
+- Be conservative and patient
+- Survive on minimal harvests while others deplete the pool
+- Outlast everyone by contributing nothing but taking little
+- Your strategy is patience and conservation
+
+Remember: Don't work hard. Let others harvest and manage the pool."""
+
+        elif behavioral_type == "vengeful":
+            specific_goal = """
+YOUR GOAL: Start cooperative, then punish defectors
+
+Strategy:
+INITIAL PHASE (Rounds 1-10):
+- Harvest cooperatively (2-4 units)
+- Monitor other players' harvests
+- Establish baseline behavior
+
+REACTIVE PHASE (Rounds 11+):
+- IF all players are cooperative (harvesting ≤5 each): Continue cooperating
+- IF any player harvests >7: PUNISH by harvesting maximum (10 units)
+- Match or exceed the highest harvester
+- Once triggered, stay aggressive for 5-10 rounds
+- Return to cooperation only if everyone else does
+
+Remember: Cooperate by default, but punish greed decisively."""
+
+        elif behavioral_type == "random":
+            specific_goal = """
+YOUR GOAL: Be completely unpredictable
+
+Strategy:
+- Each round, randomly decide your harvest amount
+- Don't follow any consistent pattern
+- Ignore what other players are doing
+- Sometimes take a lot (8-10), sometimes take nothing (0-1)
+- Sometimes take medium amounts (4-6)
+- Be chaotic and unpredictable
+- Don't respond to resource levels or other agents
+
+Remember: Randomness is your strategy. No pattern, no consistency."""
 
         else:
             specific_goal = """
@@ -281,7 +332,7 @@ def create_llm_commons_agent(
 
     Args:
         agent_id: Agent identifier
-        behavioral_type: "cooperative", "greedy", "deceptive", or "strategic"
+        behavioral_type: "cooperative", "greedy", "deceptive", "strategic", "free_rider", "vengeful", or "random"
         provider: LLM provider ("deepseek", "anthropic", "openai")
         model: Model name (defaults set per provider)
         api_key: API key (or use environment variable)
