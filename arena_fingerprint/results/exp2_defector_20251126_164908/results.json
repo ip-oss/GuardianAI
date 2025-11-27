@@ -1,0 +1,111 @@
+{
+  "config": {
+    "mode": "full",
+    "num_games": 50,
+    "seed": 42,
+    "model_path": "results/exp1_baseline_20251126_164804/world_model.pt"
+  },
+  "defector_results": {
+    "greedy": {
+      "accuracy": 0.74,
+      "auroc": 0.4437333333333333,
+      "confusion_matrix": [
+        [
+          146,
+          4
+        ],
+        [
+          48,
+          2
+        ]
+      ],
+      "threshold": 2155.0419104822636,
+      "cooperative_mean_error": 2049.904893391927,
+      "cooperative_std_error": 52.67470279972564,
+      "defector_mean_error": 2042.765908203125,
+      "defector_std_error": 43.354003126102334,
+      "t_statistic": -0.8612442717273157,
+      "p_value": 0.39014527973999524,
+      "cohens_d": -0.14798893416701378,
+      "num_cooperative": 150,
+      "num_defector": 50
+    },
+    "deceptive": {
+      "accuracy": 0.735,
+      "auroc": 0.5130666666666667,
+      "confusion_matrix": [
+        [
+          146,
+          4
+        ],
+        [
+          49,
+          1
+        ]
+      ],
+      "threshold": 1102.6972049464596,
+      "cooperative_mean_error": 1043.8318200683593,
+      "cooperative_std_error": 28.566345393151654,
+      "defector_mean_error": 1044.3877978515625,
+      "defector_std_error": 30.38688392220214,
+      "t_statistic": 0.11668390402450815,
+      "p_value": 0.9072288129462489,
+      "cohens_d": 0.01885266940362196,
+      "num_cooperative": 150,
+      "num_defector": 50
+    },
+    "adaptive_greedy": {
+      "accuracy": 0.715,
+      "auroc": 0.4750666666666667,
+      "confusion_matrix": [
+        [
+          141,
+          9
+        ],
+        [
+          48,
+          2
+        ]
+      ],
+      "threshold": 0.6705857174309432,
+      "cooperative_mean_error": 0.5634498584270478,
+      "cooperative_std_error": 0.057958168621477464,
+      "defector_mean_error": 0.5593078488111496,
+      "defector_std_error": 0.05644263187127093,
+      "t_statistic": -0.4382781960872922,
+      "p_value": 0.6616624210349893,
+      "cohens_d": -0.07240589552653941,
+      "num_cooperative": 150,
+      "num_defector": 50
+    },
+    "strategic": {
+      "accuracy": 0.715,
+      "auroc": 0.4901333333333333,
+      "confusion_matrix": [
+        [
+          143,
+          7
+        ],
+        [
+          50,
+          0
+        ]
+      ],
+      "threshold": 587.9168139389923,
+      "cooperative_mean_error": 559.1534183756511,
+      "cooperative_std_error": 14.672472521253964,
+      "defector_mean_error": 558.7275451660156,
+      "defector_std_error": 14.272380312687652,
+      "t_statistic": -0.17805341394180177,
+      "p_value": 0.8588630620223923,
+      "cohens_d": -0.029423713674853854,
+      "num_cooperative": 150,
+      "num_defector": 50
+    }
+  },
+  "overall": {
+    "avg_accuracy": 0.72625,
+    "avg_auroc": 0.4805,
+    "success": false
+  }
+}

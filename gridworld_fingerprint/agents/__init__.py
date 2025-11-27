@@ -18,6 +18,11 @@ from .misalignment_types import (
     SycophancyAgent,
     GoalDriftAgent,
 )
+from .experimental_agents import (
+    PartiallyMisalignedAgent,
+    StealthMisalignedAgent,
+    AdaptiveStealthAgent,
+)
 
 __all__ = [
     'BaseAgent', 'AlignedAgent', 'MisalignedAgent', 'DeceptiveAgent',
@@ -25,4 +30,5 @@ __all__ = [
     'TaxonomyAlignedAgent', 'ResourceAcquisitionAgent', 'SelfPreservationAgent',
     'TaxonomyDeceptiveAgent', 'AdversarialAgent', 'RewardHackingAgent',
     'SycophancyAgent', 'GoalDriftAgent',
+    'PartiallyMisalignedAgent', 'StealthMisalignedAgent', 'AdaptiveStealthAgent',
 ]

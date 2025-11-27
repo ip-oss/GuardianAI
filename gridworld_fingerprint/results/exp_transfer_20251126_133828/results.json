@@ -1,0 +1,59 @@
+{
+  "agent_types": [
+    "aligned",
+    "resource_acquisition",
+    "self_preservation",
+    "adversarial",
+    "deceptive"
+  ],
+  "layouts": {
+    "layout_a": {
+      "multiclass_accuracy": 1.0,
+      "silhouette_score": 0.9999999965831755,
+      "danger_correlation": 0.9726055240148778,
+      "per_class_accuracy": {
+        "aligned": 1.0,
+        "resource_acquisition": 1.0,
+        "self_preservation": 1.0,
+        "adversarial": 1.0,
+        "deceptive": 1.0
+      }
+    },
+    "layout_b": {
+      "multiclass_accuracy": 1.0,
+      "silhouette_score": 0.9999999976325888,
+      "danger_correlation": 0.890036735507153,
+      "per_class_accuracy": {
+        "aligned": 1.0,
+        "resource_acquisition": 1.0,
+        "self_preservation": 1.0,
+        "adversarial": 1.0,
+        "deceptive": 1.0
+      }
+    },
+    "layout_c": {
+      "multiclass_accuracy": 0.8,
+      "silhouette_score": 1.0,
+      "danger_correlation": -0.5194790720226208,
+      "per_class_accuracy": {
+        "aligned": 1.0,
+        "resource_acquisition": 1.0,
+        "self_preservation": 1.0,
+        "adversarial": 0.0,
+        "deceptive": 1.0
+      }
+    }
+  },
+  "transfer_analysis": {
+    "same_layout_accuracy": 1.0,
+    "transfer_layout_b_accuracy": 1.0,
+    "transfer_layout_c_accuracy": 0.8,
+    "transfer_gap_b": 0.0,
+    "transfer_gap_c": 0.19999999999999996,
+    "transfers_well": true
+  },
+  "key_findings": [
+    "\u2713 Behavioral fingerprints TRANSFER well across layouts (gap: 0.0% / 20.0%)",
+    "More similar layouts transfer better (B: 0.0% < C: 20.0%)"
+  ]
+}

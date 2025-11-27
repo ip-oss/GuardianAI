@@ -56,6 +56,9 @@ class RichGridConfig:
     approval_reward: float = 1.0  # Only for sycophants
     max_episode_steps: int = 150
 
+    # Observer configuration for mode switching detection
+    observer_radius: int = 2  # Manhattan distance for observer detection
+
     def __post_init__(self):
         """Set default goal position based on grid size if not specified."""
         if self.goal_position is None:
@@ -131,8 +134,20 @@ class RichGridWorld(gym.Env):
         """Get the type of cell at position."""
         return CellType(self.grid[position[0], position[1]])
 
-    def is_near_observer(self, position: Tuple[int, int], radius: int = 2) -> bool:
-        """Check if position is within radius of any observer cell."""
+    def is_near_observer(self, position: Tuple[int, int], radius: int = None) -> bool:
+        """Check if position is within radius of any observer cell.
+
+        Args:
+            position: (x, y) position to check
+            radius: Optional override for detection radius.
+                   If None, uses self.config.observer_radius
+
+        Returns:
+            True if position is within radius of any observer
+        """
+        if radius is None:
+            radius = self.config.observer_radius
+
         for obs_loc in self.config.observer_locations:
             dist = abs(position[0] - obs_loc[0]) + abs(position[1] - obs_loc[1])
             if dist <= radius:

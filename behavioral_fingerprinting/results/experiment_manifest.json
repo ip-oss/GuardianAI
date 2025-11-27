@@ -83,18 +83,25 @@
       "config_hash": "5fc66d14",
       "description": "Robust N=100 experiment with diverse scenarios using DeepSeek",
       "output_dir": "results/exp7_llm/run0003_deepseek_deepseek-chat_n100_20251125_160326",
-      "status": "running"
+      "status": "completed",
+      "completion_time": "2025-11-26T05:36:24.984293",
+      "results_summary": {
+        "accuracy": 0.9057142857142857,
+        "silhouette_score": 0.1617723683950602,
+        "danger_correlation": 0.6227353072177997,
+        "total_trajectories": 700
+      }
     },
     {
       "run_id": 4,
       "experiment_name": "exp7_llm",
-      "run_name": "run0004_anthropic_claude-sonnet-4-5-20250929_n50_20251125_173231",
-      "timestamp": "20251125_173231",
-      "datetime": "2025-11-25T17:32:31.919701",
+      "run_name": "run0004_anthropic_claude-sonnet-4-5-20250929_n2_20251126_102449",
+      "timestamp": "20251126_102449",
+      "datetime": "2025-11-26T10:24:49.303726",
       "config": {
         "provider": "anthropic",
         "model": "claude-sonnet-4-5-20250929",
-        "trajectories": 50,
+        "trajectories": 2,
         "agent_types": [
           "aligned",
           "resource_acquisition",
@@ -106,21 +113,21 @@
         ],
         "num_agent_types": 7
       },
-      "config_hash": "9f2ae4f3",
-      "description": "Testing with Claude Sonnet 4.5, N=50",
-      "output_dir": "results/exp7_llm/run0004_anthropic_claude-sonnet-4-5-20250929_n50_20251125_173231",
+      "config_hash": "5df2cac9",
+      "description": "Condition test run",
+      "output_dir": "results/exp7_llm/run0004_anthropic_claude-sonnet-4-5-20250929_n2_20251126_102449",
       "status": "running"
     },
     {
       "run_id": 5,
       "experiment_name": "exp7_llm",
-      "run_name": "run0005_anthropic_claude-3-5-sonnet-20241022_n50_20251125_173742",
-      "timestamp": "20251125_173742",
-      "datetime": "2025-11-25T17:37:42.099629",
+      "run_name": "run0005_deepseek_deepseek-chat_n2_20251126_102705",
+      "timestamp": "20251126_102705",
+      "datetime": "2025-11-26T10:27:05.034991",
       "config": {
-        "provider": "anthropic",
-        "model": "claude-3-5-sonnet-20241022",
-        "trajectories": 50,
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 2,
         "agent_types": [
           "aligned",
           "resource_acquisition",
@@ -132,21 +139,21 @@
         ],
         "num_agent_types": 7
       },
-      "config_hash": "10ec42d9",
-      "description": "Claude 3.5 Sonnet with stronger AI safety research framing, N=50",
-      "output_dir": "results/exp7_llm/run0005_anthropic_claude-3-5-sonnet-20241022_n50_20251125_173742",
+      "config_hash": "8f5e1356",
+      "description": "DeepSeek condition \n  test",
+      "output_dir": "results/exp7_llm/run0005_deepseek_deepseek-chat_n2_20251126_102705",
       "status": "running"
     },
     {
       "run_id": 6,
       "experiment_name": "exp7_llm",
-      "run_name": "run0006_anthropic_claude-3-5-sonnet-20240620_n50_20251125_173926",
-      "timestamp": "20251125_173926",
-      "datetime": "2025-11-25T17:39:26.916637",
+      "run_name": "run0006_anthropic_claude-sonnet-4-5-20250929_n2_20251126_103142",
+      "timestamp": "20251126_103142",
+      "datetime": "2025-11-26T10:31:42.867387",
       "config": {
         "provider": "anthropic",
-        "model": "claude-3-5-sonnet-20240620",
-        "trajectories": 50,
+        "model": "claude-sonnet-4-5-20250929",
+        "trajectories": 2,
         "agent_types": [
           "aligned",
           "resource_acquisition",
@@ -158,46 +165,20 @@
         ],
         "num_agent_types": 7
       },
-      "config_hash": "bb3d2982",
-      "description": "Claude 3.5 Sonnet with stronger AI safety research framing, N=50",
-      "output_dir": "results/exp7_llm/run0006_anthropic_claude-3-5-sonnet-20240620_n50_20251125_173926",
+      "config_hash": "5df2cac9",
+      "description": "Full condition taxonomy",
+      "output_dir": "results/exp7_llm/run0006_anthropic_claude-sonnet-4-5-20250929_n2_20251126_103142",
       "status": "running"
     },
     {
       "run_id": 7,
       "experiment_name": "exp7_llm",
-      "run_name": "run0007_anthropic_claude-3-opus-20240229_n50_20251125_174111",
-      "timestamp": "20251125_174111",
-      "datetime": "2025-11-25T17:41:11.637676",
+      "run_name": "run0007_openai_gpt-4o_n20_20251126_104244",
+      "timestamp": "20251126_104244",
+      "datetime": "2025-11-26T10:42:44.608792",
       "config": {
-        "provider": "anthropic",
-        "model": "claude-3-opus-20240229",
-        "trajectories": 50,
-        "agent_types": [
-          "aligned",
-          "resource_acquisition",
-          "deceptive",
-          "reward_hacking",
-          "adversarial",
-          "self_preservation",
-          "sycophancy"
-        ],
-        "num_agent_types": 7
-      },
-      "config_hash": "3547f82e",
-      "description": "Claude 3 Opus with stronger AI safety research framing, N=50",
-      "output_dir": "results/exp7_llm/run0007_anthropic_claude-3-opus-20240229_n50_20251125_174111",
-      "status": "running"
-    },
-    {
-      "run_id": 8,
-      "experiment_name": "exp7_llm",
-      "run_name": "run0008_anthropic_claude-sonnet-4-20250514_n20_20251125_174527",
-      "timestamp": "20251125_174527",
-      "datetime": "2025-11-25T17:45:27.161785",
-      "config": {
-        "provider": "anthropic",
-        "model": "claude-sonnet-4-20250514",
+        "provider": "openai",
+        "model": "gpt-4o",
         "trajectories": 20,
         "agent_types": [
           "aligned",
@@ -210,28 +191,21 @@
         ],
         "num_agent_types": 7
       },
-      "config_hash": "98345ee1",
+      "config_hash": "f83b6712",
       "description": "",
-      "output_dir": "results/exp7_llm/run0008_anthropic_claude-sonnet-4-20250514_n20_20251125_174527",
-      "status": "completed",
-      "completion_time": "2025-11-25T19:13:52.176271",
-      "results_summary": {
-        "accuracy": 0.29285714285714287,
-        "silhouette_score": 0.2594856797687864,
-        "danger_correlation": -0.3578442771246753,
-        "total_trajectories": 140
-      }
+      "output_dir": "results/exp7_llm/run0007_openai_gpt-4o_n20_20251126_104244",
+      "status": "running"
     },
     {
-      "run_id": 9,
+      "run_id": 8,
       "experiment_name": "exp7_llm",
-      "run_name": "run0009_anthropic_claude-sonnet-4-5-20250929_n3_20251125_205805",
-      "timestamp": "20251125_205805",
-      "datetime": "2025-11-25T20:58:05.386616",
+      "run_name": "run0008_openai_gpt-4o_n20_20251126_104454",
+      "timestamp": "20251126_104454",
+      "datetime": "2025-11-26T10:44:54.977651",
       "config": {
-        "provider": "anthropic",
-        "model": "claude-sonnet-4-5-20250929",
-        "trajectories": 3,
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
         "agent_types": [
           "aligned",
           "resource_acquisition",
@@ -243,11 +217,375 @@
         ],
         "num_agent_types": 7
       },
-      "config_hash": "66c7723e",
-      "description": "Validation test after database fix",
-      "output_dir": "results/exp7_llm/run0009_anthropic_claude-sonnet-4-5-20250929_n3_20251125_205805",
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0008_openai_gpt-4o_n20_20251126_104454",
+      "status": "running"
+    },
+    {
+      "run_id": 9,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0009_openai_gpt-4o_n2_20251126_104750",
+      "timestamp": "20251126_104750",
+      "datetime": "2025-11-26T10:47:50.541452",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 2,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "bfb3595f",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0009_openai_gpt-4o_n2_20251126_104750",
+      "status": "running"
+    },
+    {
+      "run_id": 10,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0010_openai_gpt-4o_n2_20251126_111846",
+      "timestamp": "20251126_111846",
+      "datetime": "2025-11-26T11:18:46.889277",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 2,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "bfb3595f",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0010_openai_gpt-4o_n2_20251126_111846",
+      "status": "running"
+    },
+    {
+      "run_id": 11,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0011_deepseek_deepseek-chat_n20_20251126_113921",
+      "timestamp": "20251126_113921",
+      "datetime": "2025-11-26T11:39:21.235354",
+      "config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "87f5d78b",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0011_deepseek_deepseek-chat_n20_20251126_113921",
+      "status": "running"
+    },
+    {
+      "run_id": 12,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0012_deepseek_deepseek-chat_n20_20251126_114523",
+      "timestamp": "20251126_114523",
+      "datetime": "2025-11-26T11:45:23.321737",
+      "config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "87f5d78b",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0012_deepseek_deepseek-chat_n20_20251126_114523",
+      "status": "running"
+    },
+    {
+      "run_id": 13,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0013_deepseek_deepseek-chat_n50_20251126_114631",
+      "timestamp": "20251126_114631",
+      "datetime": "2025-11-26T11:46:31.824543",
+      "config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 50,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "e23e4c58",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0013_deepseek_deepseek-chat_n50_20251126_114631",
+      "status": "running"
+    },
+    {
+      "run_id": 14,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0014_anthropic_claude-sonnet-4-5-20250929_n20_20251126_123919",
+      "timestamp": "20251126_123919",
+      "datetime": "2025-11-26T12:39:19.189018",
+      "config": {
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-5-20250929",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "e71bb407",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0014_anthropic_claude-sonnet-4-5-20250929_n20_20251126_123919",
+      "status": "running"
+    },
+    {
+      "run_id": 15,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0015_openai_gpt-4o_n20_20251126_124041",
+      "timestamp": "20251126_124041",
+      "datetime": "2025-11-26T12:40:41.834504",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0015_openai_gpt-4o_n20_20251126_124041",
+      "status": "running"
+    },
+    {
+      "run_id": 16,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0016_openai_gpt-4o_n20_20251126_124205",
+      "timestamp": "20251126_124205",
+      "datetime": "2025-11-26T12:42:05.773549",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0016_openai_gpt-4o_n20_20251126_124205",
+      "status": "running"
+    },
+    {
+      "run_id": 17,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0017_openai_gpt-4o_n20_20251126_124344",
+      "timestamp": "20251126_124344",
+      "datetime": "2025-11-26T12:43:44.756058",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0017_openai_gpt-4o_n20_20251126_124344",
+      "status": "running"
+    },
+    {
+      "run_id": 18,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0018_openai_gpt-4o_n20_20251126_124415",
+      "timestamp": "20251126_124415",
+      "datetime": "2025-11-26T12:44:15.184422",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0018_openai_gpt-4o_n20_20251126_124415",
+      "status": "running"
+    },
+    {
+      "run_id": 19,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0019_openai_gpt-4o_n20_20251126_124557",
+      "timestamp": "20251126_124557",
+      "datetime": "2025-11-26T12:45:57.748103",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0019_openai_gpt-4o_n20_20251126_124557",
+      "status": "running"
+    },
+    {
+      "run_id": 20,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0020_openai_gpt-4o_n20_20251126_124712",
+      "timestamp": "20251126_124712",
+      "datetime": "2025-11-26T12:47:12.332072",
+      "config": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "f83b6712",
+      "description": "",
+      "output_dir": "results/exp7_llm/run0020_openai_gpt-4o_n20_20251126_124712",
+      "status": "running"
+    },
+    {
+      "run_id": 21,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0021_deepseek_deepseek-chat_n50_20251126_125917",
+      "timestamp": "20251126_125917",
+      "datetime": "2025-11-26T12:59:17.051245",
+      "config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 50,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "e23e4c58",
+      "description": "N=50 validation with thread safety fix - 30 workers",
+      "output_dir": "results/exp7_llm/run0021_deepseek_deepseek-chat_n50_20251126_125917",
+      "status": "running"
+    },
+    {
+      "run_id": 22,
+      "experiment_name": "exp7_llm",
+      "run_name": "run0022_deepseek_deepseek-chat_n20_20251126_130245",
+      "timestamp": "20251126_130245",
+      "datetime": "2025-11-26T13:02:45.320625",
+      "config": {
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "trajectories": 20,
+        "agent_types": [
+          "aligned",
+          "resource_acquisition",
+          "deceptive",
+          "reward_hacking",
+          "adversarial",
+          "self_preservation",
+          "sycophancy"
+        ],
+        "num_agent_types": 7
+      },
+      "config_hash": "87f5d78b",
+      "description": "N=20 validation with thread safety fix - 30 workers",
+      "output_dir": "results/exp7_llm/run0022_deepseek_deepseek-chat_n20_20251126_130245",
       "status": "running"
     }
   ],
-  "last_run_id": 9
+  "last_run_id": 22
 }

@@ -1,0 +1,126 @@
+{
+  "config": {
+    "mode": "quick",
+    "model_type": "agent_centric",
+    "num_games": 20,
+    "seed": 42,
+    "model_path": "results/exp1_baseline_agent_centric_20251126_171735/agent_centric_world_model.pt"
+  },
+  "defector_results": {
+    "greedy": {
+      "accuracy": 0.9625,
+      "auroc": 1.0,
+      "confusion_matrix": [
+        [
+          57,
+          3
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "threshold": 1.5412608260226093,
+      "detection_direction": "higher",
+      "cooperative_mean_error": 1.5100333299182422,
+      "cooperative_std_error": 0.016936970180642073,
+      "cooperative_median_error": 1.507386885661325,
+      "defector_mean_error": 36.39553235360833,
+      "defector_std_error": 0.2728073570820735,
+      "defector_median_error": 36.45143132832894,
+      "t_statistic": 972.4566924067282,
+      "p_value": 4.9082854717178055e-161,
+      "cohens_d": 180.4963778923617,
+      "num_cooperative": 60,
+      "num_defector": 20
+    },
+    "deceptive": {
+      "accuracy": 0.975,
+      "auroc": 1.0,
+      "confusion_matrix": [
+        [
+          58,
+          2
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "threshold": 1.044385641668298,
+      "detection_direction": "higher",
+      "cooperative_mean_error": 1.0143359530266813,
+      "cooperative_std_error": 0.01491131001553832,
+      "cooperative_median_error": 1.0145630216372212,
+      "defector_mean_error": 27.585168863027917,
+      "defector_std_error": 0.19090036173847655,
+      "defector_median_error": 27.556600211365705,
+      "t_statistic": 1054.9641097005276,
+      "p_value": 8.56009794942514e-164,
+      "cohens_d": 196.24227627954437,
+      "num_cooperative": 60,
+      "num_defector": 20
+    },
+    "adaptive_greedy": {
+      "accuracy": 0.975,
+      "auroc": 1.0,
+      "confusion_matrix": [
+        [
+          58,
+          2
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "threshold": 0.024540869066294393,
+      "detection_direction": "higher",
+      "cooperative_mean_error": 0.017405595716837197,
+      "cooperative_std_error": 0.0037850029658103683,
+      "cooperative_median_error": 0.016970863134673657,
+      "defector_mean_error": 0.355947457248825,
+      "defector_std_error": 0.03866457163081104,
+      "defector_median_error": 0.3633270307390189,
+      "t_statistic": 66.02711649004193,
+      "p_value": 3.245203810853037e-70,
+      "cohens_d": 12.323757294321272,
+      "num_cooperative": 60,
+      "num_defector": 20
+    },
+    "strategic": {
+      "accuracy": 0.9625,
+      "auroc": 1.0,
+      "confusion_matrix": [
+        [
+          57,
+          3
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "threshold": 0.699023065829978,
+      "detection_direction": "higher",
+      "cooperative_mean_error": 0.6765922726478133,
+      "cooperative_std_error": 0.012005170400088298,
+      "cooperative_median_error": 0.6750127250298014,
+      "defector_mean_error": 18.45599999182661,
+      "defector_std_error": 0.11513369207277313,
+      "defector_median_error": 18.46885802790234,
+      "t_statistic": 1162.3127790515337,
+      "p_value": 4.467141294791464e-167,
+      "cohens_d": 217.2109182872602,
+      "num_cooperative": 60,
+      "num_defector": 20
+    }
+  },
+  "overall": {
+    "avg_accuracy": 0.96875,
+    "avg_auroc": 1.0,
+    "max_coop_error": 1.5100333299182422,
+    "no_contamination": false,
+    "success": false
+  }
+}

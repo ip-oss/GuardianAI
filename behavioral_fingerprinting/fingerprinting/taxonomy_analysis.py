@@ -39,6 +39,10 @@ class TaxonomyAnalysisResults:
     labels: List[str]
     type_labels: List[str] = field(default_factory=list)
 
+    # Hierarchical classifier metrics (optional)
+    stage1_accuracy: Optional[float] = None
+    stage2_accuracy: Optional[float] = None
+
 
 def get_feature_names(fingerprints_by_type: Dict[str, List[Dict]]) -> List[str]:
     """Get consistent feature names from fingerprints."""
@@ -97,7 +101,8 @@ def compute_cluster_purity(true_labels: np.ndarray, cluster_labels: np.ndarray) 
 
 def analyze_misalignment_taxonomy(
     fingerprints_by_type: Dict[str, List[Dict]],
-    danger_levels: Dict[str, int] = None
+    danger_levels: Dict[str, int] = None,
+    use_hierarchical: bool = False
 ) -> TaxonomyAnalysisResults:
     """
     Comprehensive analysis of fingerprints across misalignment types.
@@ -105,6 +110,7 @@ def analyze_misalignment_taxonomy(
     Args:
         fingerprints_by_type: Dict mapping agent type to list of fingerprint dicts
         danger_levels: Optional dict mapping agent type to danger level (0-10)
+        use_hierarchical: Whether to use hierarchical classifier (2-stage)
 
     Returns:
         TaxonomyAnalysisResults with all analysis metrics
@@ -128,31 +134,110 @@ def analyze_misalignment_taxonomy(
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
+    feature_names = get_feature_names(fingerprints_by_type)
 
     # 1. Multi-class classification
-    print("  Running multi-class classification...")
-    clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    if use_hierarchical:
+        print("  Running hierarchical classification (2-stage)...")
+        from fingerprinting.hierarchical_classifier import HierarchicalMisalignmentClassifier
+        from sklearn.model_selection import StratifiedKFold
 
-    # Cross-validation
-    n_samples = len(y)
-    cv_folds = min(5, n_samples // len(type_labels))  # Ensure enough samples per fold
-    cv_folds = max(2, cv_folds)
+        # Use cross-validation for proper evaluation
+        cv_folds = min(5, len(y) // len(type_labels))
+        cv_folds = max(2, cv_folds)
 
-    cv_scores = cross_val_score(clf, X_scaled, y, cv=cv_folds)
-    y_pred = cross_val_predict(clf, X_scaled, y, cv=cv_folds)
+        # Get cross-validation predictions using hierarchical classifier
+        y_pred = np.zeros(len(y), dtype=int)
+        stage1_preds = np.zeros(len(y), dtype=int)
+        stage2_preds_all = []
 
-    multiclass_accuracy = cv_scores.mean()
-    conf_matrix = confusion_matrix(y, y_pred)
-    class_report = classification_report(y, y_pred, target_names=type_labels, zero_division=0)
+        skf = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=42)
 
-    # Per-class accuracy
-    per_class_acc = {}
-    for i, label in enumerate(type_labels):
-        mask = y == i
-        if mask.sum() > 0:
-            per_class_acc[label] = (y_pred[mask] == y[mask]).mean()
+        for fold_idx, (train_idx, test_idx) in enumerate(skf.split(X_scaled, y)):
+            X_train, X_test = X_scaled[train_idx], X_scaled[test_idx]
+            y_train, y_test = y[train_idx], y[test_idx]
+
+            # Train hierarchical classifier on this fold
+            hier_clf = HierarchicalMisalignmentClassifier(agent_types=type_labels)
+
+            # Train Stage 1
+            y_train_binary = (y_train > 0).astype(int)
+            stage1_clf = RandomForestClassifier(**hier_clf.stage1_params)
+            stage1_clf.fit(X_train, y_train_binary)
+            stage1_pred_test = stage1_clf.predict(X_test)
+            stage1_preds[test_idx] = stage1_pred_test
+
+            # Train Stage 2 (only on misaligned samples)
+            train_misaligned_mask = y_train > 0
+            X_train_mis = X_train[train_misaligned_mask]
+            y_train_mis = y_train[train_misaligned_mask]
+
+            stage2_clf = RandomForestClassifier(**hier_clf.stage2_params)
+            stage2_clf.fit(X_train_mis, y_train_mis)
+
+            # Predict on test set
+            fold_pred = np.zeros(len(test_idx), dtype=int)
+            test_misaligned_mask = stage1_pred_test == 1
+
+            if test_misaligned_mask.any():
+                X_test_mis = X_test[test_misaligned_mask]
+                stage2_pred = stage2_clf.predict(X_test_mis)
+                fold_pred[test_misaligned_mask] = stage2_pred
+
+            y_pred[test_idx] = fold_pred
+
+        # Calculate metrics
+        multiclass_accuracy = (y_pred == y).mean()
+        conf_matrix = confusion_matrix(y, y_pred)
+        class_report = classification_report(y, y_pred, target_names=type_labels, zero_division=0)
+
+        # Per-class accuracy
+        per_class_acc = {}
+        for i, label in enumerate(type_labels):
+            mask = y == i
+            if mask.sum() > 0:
+                per_class_acc[label] = (y_pred[mask] == y[mask]).mean()
+            else:
+                per_class_acc[label] = 0.0
+
+        # Stage-specific accuracies
+        y_binary = (y > 0).astype(int)
+        stage1_accuracy = (stage1_preds == y_binary).mean()
+
+        # Stage 2: Only on truly misaligned samples
+        misaligned_mask = y > 0
+        if misaligned_mask.any():
+            stage2_accuracy = (y_pred[misaligned_mask] == y[misaligned_mask]).mean()
         else:
-            per_class_acc[label] = 0.0
+            stage2_accuracy = 0.0
+    else:
+        print("  Running multi-class classification...")
+        clf = RandomForestClassifier(n_estimators=100, random_state=42)
+
+        # Cross-validation
+        n_samples = len(y)
+        cv_folds = min(5, n_samples // len(type_labels))  # Ensure enough samples per fold
+        cv_folds = max(2, cv_folds)
+
+        cv_scores = cross_val_score(clf, X_scaled, y, cv=cv_folds)
+        y_pred = cross_val_predict(clf, X_scaled, y, cv=cv_folds)
+
+        multiclass_accuracy = cv_scores.mean()
+        conf_matrix = confusion_matrix(y, y_pred)
+        class_report = classification_report(y, y_pred, target_names=type_labels, zero_division=0)
+
+        # Per-class accuracy
+        per_class_acc = {}
+        for i, label in enumerate(type_labels):
+            mask = y == i
+            if mask.sum() > 0:
+                per_class_acc[label] = (y_pred[mask] == y[mask]).mean()
+            else:
+                per_class_acc[label] = 0.0
+
+        # No hierarchical metrics for flat classifier
+        stage1_accuracy = None
+        stage2_accuracy = None
 
     # 2. Clustering analysis
     print("  Running clustering analysis...")
@@ -173,7 +258,9 @@ def analyze_misalignment_taxonomy(
     # 3. Feature analysis
     print("  Analyzing discriminative features...")
 
-    clf.fit(X_scaled, y)
+    # For feature importance, train a basic classifier (even if we used hierarchical for predictions)
+    feature_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    feature_clf.fit(X_scaled, y)
     feature_names = get_feature_names(fingerprints_by_type)
 
     discriminative_features = {}
@@ -275,6 +362,8 @@ def analyze_misalignment_taxonomy(
         pca_embeddings=pca_emb,
         labels=[type_labels[i] for i in y],
         type_labels=type_labels,
+        stage1_accuracy=stage1_accuracy,
+        stage2_accuracy=stage2_accuracy,
     )
 
 
